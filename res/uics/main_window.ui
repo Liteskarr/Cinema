@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Кинотеатры</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="navigation">
+    <property name="title">
+     <string>Навигация</string>
+    </property>
+    <addaction name="backward"/>
+    <addaction name="drop_stack"/>
+   </widget>
+   <widget class="QMenu" name="information">
+    <property name="title">
+     <string>Информация</string>
+    </property>
+    <addaction name="source"/>
+    <addaction name="info"/>
+    <addaction name="contacts"/>
+   </widget>
+   <addaction name="navigation"/>
+   <addaction name="information"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="backward">
+   <property name="text">
+    <string>Назад</string>
+   </property>
+  </action>
+  <action name="drop_stack">
+   <property name="text">
+    <string>Вернуться в меню</string>
+   </property>
+  </action>
+  <action name="source">
+   <property name="text">
+    <string>Исходный код</string>
+   </property>
+  </action>
+  <action name="info">
+   <property name="text">
+    <string>Инфо</string>
+   </property>
+  </action>
+  <action name="contacts">
+   <property name="text">
+    <string>Контакты</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
