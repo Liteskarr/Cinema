@@ -12,7 +12,7 @@ class IPage:
     def get_new_page(self):
         raise NotImplementedError()
 
-    def safe_exit(self) -> bool:
+    def exit_with_safing(self) -> bool:
         """
         Возвращает True, если было совершено закрытие страницы.
         Иначе False. Требует для контроля, например, за сохранением пользователем изменений.
