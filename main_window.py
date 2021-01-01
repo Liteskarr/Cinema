@@ -1,10 +1,6 @@
 import PyQt5.uic as uic
 from PyQt5.QtWidgets import (QMainWindow,
-                             QWidget,
-                             QPushButton)
-
-from stack import Stack
-from ipage import IPage
+                             QWidget)
 
 
 class MainWindow(QMainWindow):
@@ -35,14 +31,14 @@ class MainWindow(QMainWindow):
 
     def _pop_widget(self):
         if self._stack_size() > 1:
-            if not self._get_top_widget().safe_exit():
+            if not self._get_top_widget().exit_with_safing():
                 return
             self.widgets.removeWidget(self._get_top_widget())
             self._display_top()
 
     def _return_to_start_page(self):
         while self._stack_size() > 1:
-            if not self._get_top_widget().safe_exit():
+            if not self._get_top_widget().exit_with_safing():
                 return
             self._pop_widget()
 
