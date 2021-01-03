@@ -1,9 +1,6 @@
-from typing import Tuple
-
 from PyQt5.QtWidgets import (QInputDialog, QMessageBox)
 
 from context_locator import ContextLocator
-from cinema_data import CinemaData
 from cinema_item_widget import CinemaItemWidget
 from items_viewer_widget import ItemsViewerWidget
 from empty_page_widget import EmptyPageWidget
@@ -16,7 +13,7 @@ class CinemasViewerWidget(ItemsViewerWidget):
         connection = ContextLocator.get_context().connection
         cursor = connection.cursor()
         for cinema, name in cursor.execute("SELECT * FROM cinemas;").fetchall():
-            self.add_widget(CinemaItemWidget(CinemaData(cinema, name)))
+            self.add_widget(CinemaItemWidget(cinema, name))
 
     def push_widget(self, widget: CinemaItemWidget):
         widget.opening_button_clicked.connect(self._handle_item_redirection)

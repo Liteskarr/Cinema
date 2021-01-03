@@ -39,7 +39,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Редактировать</string>
+      <string>Переименовать</string>
      </property>
     </widget>
    </item>
@@ -51,7 +51,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Перейти</string>
+      <string>Залы</string>
      </property>
     </widget>
    </item>
