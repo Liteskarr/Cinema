@@ -29,7 +29,7 @@ class FilmsViewerWidget(ItemsViewerWidget):
             self.reload_items()
 
     def push_widget(self, widget: FilmItemWidget):
-        widget.film_deleting.connect(self._handle_item_deleting)
+        widget.deleting_button_clicked.connect(self._handle_item_deleting)
         self._fast_push(widget)
 
     def reload_items(self):

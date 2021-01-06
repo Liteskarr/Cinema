@@ -3,6 +3,8 @@ import sqlite3
 
 from PyQt5.QtWidgets import (QApplication)
 
+from context_data import ContextData
+from context_locator import ContextLocator
 from main_window import MainWindow
 from main_menu_widget import MainMenuWidget
 
@@ -23,11 +25,13 @@ def enable_debug_mode() -> None:
 
 def main():
     enable_debug_mode()
-    connection = sqlite3.connect('res/data/database.db')
+    context_data = ContextData()
+    context_data.connection = sqlite3.connect('res/data/database.db')
+    ContextLocator.set_context(context_data)
 
     application = QApplication(sys.argv)
     main_window = MainWindow()
-    main_window.init_start_page(MainMenuWidget(connection))
+    main_window.init_start_page(MainMenuWidget())
     main_window.show()
     sys.exit(application.exec())
 

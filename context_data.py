@@ -10,3 +10,6 @@ class ContextData:
     current_hall: int
 
     connection: sqlite3.Connection
+
+    datetime_show_format: str = "%d.%m.%Y %H:%M"
+    datetime_packing_format: str = "%Y-%m-%d %H:%M"

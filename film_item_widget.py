@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (QWidget)
 
 
 class FilmItemWidget(QWidget):
-    film_deleting = pyqtSignal(int)
+    deleting_button_clicked = pyqtSignal(int)
 
     def __init__(self, film: int, name: str, duration: int):
         super().__init__()
@@ -17,4 +17,4 @@ class FilmItemWidget(QWidget):
         uic.loadUi('res/uics/film_item.ui', self)
         self.title_label.setText(self._name)
         self.duration_label.setText(f'({self._duration // 60 :02d}:{self._duration % 60 :02d})')
-        self.deleting_button.clicked.connect(lambda: self.film_deleting.emit(self._film))
+        self.deleting_button.clicked.connect(lambda: self.deleting_button_clicked.emit(self._film))

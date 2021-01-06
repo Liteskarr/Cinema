@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (QInputDialog, QMessageBox, QWidget)
 from context_locator import ContextLocator
 from hall_item_widget import HallItemWidget
 from items_viewer_widget import ItemsViewerWidget
+from sessions_viewer_widget import SessionsViewerWidget
 from empty_page_widget import EmptyPageWidget
 
 
@@ -25,7 +26,10 @@ class HallsViewerWidget(ItemsViewerWidget):
             self.reload_items()
 
     def _handle_item_redirection(self, hall: int):
-        raise NotImplementedError()
+        ContextLocator.get_context().current_hall = hall
+        self._new_page = SessionsViewerWidget()
+        self.opened_new_page.emit()
+        self._new_page = EmptyPageWidget()
 
     def _handle_item_editing(self, hall: int):
         connection = ContextLocator.get_context().connection
