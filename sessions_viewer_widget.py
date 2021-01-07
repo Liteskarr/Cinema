@@ -6,6 +6,8 @@ from PyQt5.QtWidgets import QInputDialog, QDialog, QDialogButtonBox, QDateTimeEd
 from context_locator import ContextLocator
 from items_viewer_widget import ItemsViewerWidget
 from session_item_widget import SessionItemWidget
+from tickets_viewer_widget import TicketsViewerWidget
+from empty_page_widget import EmptyPageWidget
 
 
 class DateDialog(QDialog):
@@ -60,7 +62,10 @@ class SessionsViewerWidget(ItemsViewerWidget):
             self.reload_items()
 
     def _handle_item_redirection(self, session: int):
-        pass
+        ContextLocator.get_context().current_session = session
+        self._new_page = TicketsViewerWidget()
+        self.opened_new_page.emit()
+        self._new_page = EmptyPageWidget()
 
     def _handle_item_deleting(self, session: int):
         connection = ContextLocator.get_context().connection

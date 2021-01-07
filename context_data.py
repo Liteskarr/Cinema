@@ -8,6 +8,7 @@ class ContextData:
     permission_lvl: int
     current_cinema: int
     current_hall: int
+    current_session: int
 
     connection: sqlite3.Connection
 
