@@ -1,10 +1,11 @@
-from PyQt5.QtWidgets import (QInputDialog, QMessageBox)
+from PyQt5.QtWidgets import (QMessageBox)
 
 from context_locator import ContextLocator
 from cinema_item_widget import CinemaItemWidget
 from items_viewer_widget import ItemsViewerWidget
 from empty_page_widget import EmptyPageWidget
 from halls_viewer_widget import HallsViewerWidget
+from cinema_editor_widget import CinemaEditorWidget
 
 
 class CinemasViewerWidget(ItemsViewerWidget):
@@ -22,11 +23,10 @@ class CinemasViewerWidget(ItemsViewerWidget):
         self._fast_push(widget)
 
     def _handle_item_adding(self):
-        cinema_name, ok = QInputDialog.getText(self, 'Создание кинотеатра', 'Название:')
+        cinema_editor = CinemaEditorWidget(self)
+        cinema_editor.exec()
+        cinema, cinema_name, ok = cinema_editor.get_cinema()
         if ok:
-            if len(cinema_name) < 4:
-                QMessageBox.information(self, 'Ошибка!', 'Длина названия должна быть больше 3 символов!')
-                return
             connection = ContextLocator.get_context().connection
             cursor = connection.cursor()
             if list(cursor.execute("SELECT id FROM cinemas WHERE name = ?;", (cinema_name, )).fetchall()):
@@ -44,14 +44,14 @@ class CinemasViewerWidget(ItemsViewerWidget):
         self._new_page = EmptyPageWidget()
 
     def _handle_item_editing(self, cinema: int):
-        name, ok = QInputDialog.getText(self, 'Переименование', 'Название:')
+        connection = ContextLocator.get_context().connection
+        cursor = connection.cursor()
+        cinema_name, *_ = cursor.execute("SELECT name FROM cinemas WHERE id = ?;", (cinema, )).fetchone()
+        cinema_editor = CinemaEditorWidget(self, cinema_name=cinema_name)
+        cinema_editor.exec()
+        _, cinema_name, ok = cinema_editor.get_cinema()
         if ok:
-            if len(name) < 4:
-                QMessageBox.information(self, 'Ошибка!', 'Длина названия должна быть больше 3 символов!')
-                return
-            connection = ContextLocator.get_context().connection
-            cursor = connection.cursor()
-            cursor.execute("UPDATE cinemas SET name = ? WHERE id = ?;", (name, cinema))
+            cursor.execute("UPDATE cinemas SET name = ? WHERE id = ?;", (cinema_name, cinema))
             connection.commit()
             self.reload_items()
 
