@@ -1,42 +1,29 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
-from PyQt5.QtCore import Qt, QDateTime
-from PyQt5.QtWidgets import QInputDialog, QDialog, QDialogButtonBox, QDateTimeEdit, QVBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
 from context_locator import ContextLocator
+from empty_page_widget import EmptyPageWidget
 from items_viewer_widget import ItemsViewerWidget
+from session_editor_widget import SessionEditorWidget
 from session_item_widget import SessionItemWidget
 from tickets_viewer_widget import TicketsViewerWidget
-from empty_page_widget import EmptyPageWidget
 
 
-class DateDialog(QDialog):
-    def __init__(self, parent=None):
-        super(DateDialog, self).__init__(parent)
-
-        layout = QVBoxLayout(self)
-
-        self.datetime = QDateTimeEdit(self)
-        self.datetime.setCalendarPopup(True)
-        self.datetime.setDateTime(QDateTime.currentDateTime())
-        layout.addWidget(self.datetime)
-
-        buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel,
-            Qt.Horizontal, self)
-        buttons.accepted.connect(self.accept)
-        buttons.rejected.connect(self.reject)
-        layout.addWidget(buttons)
-
-    def _get_datetime(self):
-        return self.datetime.dateTime()
-
-    @staticmethod
-    def get_datetime(parent=None):
-        dialog = DateDialog(parent)
-        result = dialog.exec_()
-        date = dialog._get_datetime()
-        return date, result == QDialog.Accepted
+def test_on_collisions(date: datetime, duration: int, hall: int) -> bool:
+    duration = timedelta(minutes=duration)
+    connection = ContextLocator.get_context().connection
+    cursor = connection.cursor()
+    for sdate, sduration in cursor.execute("SELECT sessions.datetime, films.duration FROM sessions "
+                                           "INNER JOIN films ON films.id = sessions.film "
+                                           "WHERE hall = ? AND closed = 0;", (hall, )).fetchall():
+        sdate = datetime.strptime(sdate[:-3], ContextLocator.get_context().datetime_packing_format)
+        sduration = timedelta(minutes=sduration)
+        if (date <= sdate <= date + duration) or \
+                (date <= sdate + duration <= date + duration) or \
+                (sdate <= date and date + duration <= sdate + sduration):
+            return True
+    return False
 
 
 class SessionsViewerWidget(ItemsViewerWidget):
@@ -44,16 +31,12 @@ class SessionsViewerWidget(ItemsViewerWidget):
         connection = ContextLocator.get_context().connection
         cursor = connection.cursor()
         hall = ContextLocator.get_context().current_hall
-        films = list(cursor.execute("SELECT * FROM films;").fetchall())
-        film, film_ok = QInputDialog.getItem(self, 'Создание сеанса', 'Выберите фильм:',
-                                             map(lambda x: x[1], films), editable=False)
-        film, film_name, duration = films[list(map(lambda x: x[1], films)).index(film)]
-        date, date_ok = DateDialog.get_datetime(self)
-        date = date.toPyDateTime()
-        cost, cost_ok = QInputDialog.getInt(self, 'Создание сеанса', 'Цена за билет: ', min=1)
-        if film_ok and date_ok and cost_ok:
-            # TODO: Test on collisions.
-            if list(cursor.execute("").fetchall()):
+        session_editor = SessionEditorWidget(self)
+        session_editor.exec()
+        _, film, date, cost, ok = session_editor.get_session()
+        duration, *_ = cursor.execute("SELECT duration FROM films WHERE id = ?;", (film,)).fetchone()
+        if ok:
+            if test_on_collisions(date, duration, hall):
                 QMessageBox.information(self, 'Ошибка!', 'Данный сеанс пересекается с уже существующим!')
                 return
             cursor.execute("INSERT INTO sessions(hall, film, datetime, cost, closed) "
@@ -70,7 +53,7 @@ class SessionsViewerWidget(ItemsViewerWidget):
     def _handle_item_deleting(self, session: int):
         connection = ContextLocator.get_context().connection
         cursor = connection.cursor()
-        cursor.execute("DELETE FROM sessions WHERE id = ?;", (session, ))
+        cursor.execute("DELETE FROM sessions WHERE id = ?;", (session,))
         connection.commit()
         self.reload_items()
 
@@ -79,7 +62,7 @@ class SessionsViewerWidget(ItemsViewerWidget):
         cursor = connection.cursor()
         cursor.execute("UPDATE sessions "
                        "SET closed = 1 "
-                       "WHERE id = ?;", (session, ))
+                       "WHERE id = ?;", (session,))
         connection.commit()
         self.reload_items()
 
@@ -99,6 +82,6 @@ class SessionsViewerWidget(ItemsViewerWidget):
         """
         for session, film_name, duration, date, is_closed in cursor.execute(request).fetchall():
             if not is_closed:
-                date = date[:date.index('.') - 3]
+                date = date[:-3]
                 date = datetime.strptime(date, ContextLocator.get_context().datetime_packing_format)
                 self.push_widget(SessionItemWidget(session, film_name, duration, date))
