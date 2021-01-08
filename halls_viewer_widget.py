@@ -6,17 +6,15 @@ from hall_item_widget import HallItemWidget
 from items_viewer_widget import ItemsViewerWidget
 from sessions_viewer_widget import SessionsViewerWidget
 from empty_page_widget import EmptyPageWidget
+from hall_editor_widget import HallEditorWidget
 
 
 class HallsViewerWidget(ItemsViewerWidget):
     def _handle_item_adding(self, *args, **kwargs):
-        hall_name, ok_name = QInputDialog.getText(self, 'Создание зала', 'Название:')
-        hall_height, ok_height = QInputDialog.getInt(self, 'Создание зала', 'Рядов:', min=1)
-        hall_width, ok_width = QInputDialog.getInt(self, 'Создание зала', 'Кресел в ряду:', min=1)
-        if ok_name and ok_height and ok_width:
-            if len(hall_name) < 4:
-                QMessageBox.information(self, 'Ошибка!', 'Длина названия должна быть больше 3 символов!')
-                return
+        hall_editor = HallEditorWidget(self)
+        hall_editor.exec()
+        _, hall_name, hall_width, hall_height, ok = hall_editor.get_hall()
+        if ok:
             cinema = ContextLocator.get_context().current_cinema
             connection = ContextLocator.get_context().connection
             cursor = connection.cursor()
