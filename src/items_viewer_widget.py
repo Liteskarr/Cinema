@@ -5,7 +5,7 @@
 import PyQt5.uic as uic
 from PyQt5.QtWidgets import (QWidget, QListWidgetItem)
 
-from ipage import IPage
+from src.ipage import IPage
 
 
 class ItemsViewerWidget(QWidget, IPage):

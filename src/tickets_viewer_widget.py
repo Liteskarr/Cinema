@@ -6,9 +6,9 @@ from PyQt5.QtWidgets import (QWidget,
                              QLabel,
                              QSizePolicy)
 
-from ipage import IPage
-from context_locator import ContextLocator
-from empty_page_widget import EmptyPageWidget
+from src.ipage import IPage
+from src.context_locator import ContextLocator
+from src.empty_page_widget import EmptyPageWidget
 
 
 class TicketsViewerWidget(QWidget, IPage):

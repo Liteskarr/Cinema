@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import (QMessageBox)
 
-from context_locator import ContextLocator
-from cinema_item_widget import CinemaItemWidget
-from items_viewer_widget import ItemsViewerWidget
-from empty_page_widget import EmptyPageWidget
-from halls_viewer_widget import HallsViewerWidget
-from cinema_editor_widget import CinemaEditorWidget
+from src.context_locator import ContextLocator
+from src.cinema_item_widget import CinemaItemWidget
+from src.items_viewer_widget import ItemsViewerWidget
+from src.empty_page_widget import EmptyPageWidget
+from src.halls_viewer_widget import HallsViewerWidget
+from src.cinema_editor_widget import CinemaEditorWidget
 
 
 class CinemasViewerWidget(ItemsViewerWidget):

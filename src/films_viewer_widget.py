@@ -1,9 +1,9 @@
-from PyQt5.QtWidgets import QWidget, QMessageBox, QInputDialog
+from PyQt5.QtWidgets import (QMessageBox)
 
-from context_locator import ContextLocator
-from items_viewer_widget import ItemsViewerWidget
-from film_item_widget import FilmItemWidget
-from film_editor_widget import FilmEditorWidget
+from src.context_locator import ContextLocator
+from src.items_viewer_widget import ItemsViewerWidget
+from src.film_item_widget import FilmItemWidget
+from src.film_editor_widget import FilmEditorWidget
 
 
 class FilmsViewerWidget(ItemsViewerWidget):

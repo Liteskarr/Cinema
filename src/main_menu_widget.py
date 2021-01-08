@@ -1,10 +1,11 @@
 import PyQt5.uic as uic
 from PyQt5.QtWidgets import (QWidget)
 
-from ipage import IPage
-from empty_page_widget import EmptyPageWidget
-from cinemas_viewer_widget import CinemasViewerWidget
-from films_viewer_widget import FilmsViewerWidget
+from src.ipage import IPage
+from src.empty_page_widget import EmptyPageWidget
+from src.cinemas_viewer_widget import CinemasViewerWidget
+from src.films_viewer_widget import FilmsViewerWidget
+from src.searching_widget import SearchingWidget
 
 
 class MainMenuWidget(QWidget, IPage):
@@ -31,7 +32,9 @@ class MainMenuWidget(QWidget, IPage):
         self._new_page = EmptyPageWidget()
 
     def _handle_searching_button_click(self):
+        self._new_page = SearchingWidget()
         self.opened_new_page.emit()
+        self._new_page = EmptyPageWidget()
 
     def _handle_statistic_button_click(self):
         self.opened_new_page.emit()

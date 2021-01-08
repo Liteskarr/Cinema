@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import (QWidget,
                              QComboBox,
                              QDateTimeEdit, QSpinBox)
 
-from context_locator import ContextLocator
+from src.context_locator import ContextLocator
 
 
 class SessionEditorWidget(QDialog):

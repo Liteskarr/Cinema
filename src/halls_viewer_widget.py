@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import (QInputDialog, QMessageBox, QWidget)
 
 
-from context_locator import ContextLocator
-from hall_item_widget import HallItemWidget
-from items_viewer_widget import ItemsViewerWidget
-from sessions_viewer_widget import SessionsViewerWidget
-from empty_page_widget import EmptyPageWidget
-from hall_editor_widget import HallEditorWidget
+from src.context_locator import ContextLocator
+from src.hall_item_widget import HallItemWidget
+from src.items_viewer_widget import ItemsViewerWidget
+from src.sessions_viewer_widget import SessionsViewerWidget
+from src.empty_page_widget import EmptyPageWidget
+from src.hall_editor_widget import HallEditorWidget
 
 
 class HallsViewerWidget(ItemsViewerWidget):

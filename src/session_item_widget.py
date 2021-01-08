@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 
 import PyQt5.uic as uic
-from context_locator import ContextLocator
 from PyQt5.QtCore import (pyqtSignal)
 from PyQt5.QtWidgets import (QWidget)
+
+from src.context_locator import ContextLocator
 
 
 class SessionItemWidget(QWidget):

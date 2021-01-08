@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 
 from PyQt5.QtWidgets import QMessageBox
 
-from context_locator import ContextLocator
-from empty_page_widget import EmptyPageWidget
-from items_viewer_widget import ItemsViewerWidget
-from session_editor_widget import SessionEditorWidget
-from session_item_widget import SessionItemWidget
-from tickets_viewer_widget import TicketsViewerWidget
+from src.context_locator import ContextLocator
+from src.empty_page_widget import EmptyPageWidget
+from src.items_viewer_widget import ItemsViewerWidget
+from src.session_editor_widget import SessionEditorWidget
+from src.session_item_widget import SessionItemWidget
+from src.tickets_viewer_widget import TicketsViewerWidget
 
 
 def test_on_collisions(date: datetime, duration: int, hall: int) -> bool:

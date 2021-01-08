@@ -1,5 +1,5 @@
-from singleton import Singleton
-from context_data import ContextData
+from src.singleton import Singleton
+from src.context_data import ContextData
 
 
 class ContextLocator(Singleton):

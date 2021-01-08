@@ -3,10 +3,10 @@ import sqlite3
 
 from PyQt5.QtWidgets import (QApplication)
 
-from context_data import ContextData
-from context_locator import ContextLocator
-from main_window import MainWindow
-from main_menu_widget import MainMenuWidget
+from src.context_data import ContextData
+from src.context_locator import ContextLocator
+from src.main_window import MainWindow
+from src.main_menu_widget import MainMenuWidget
 
 
 def enable_threads_exceptions() -> None:
