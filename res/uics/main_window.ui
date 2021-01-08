@@ -40,16 +40,7 @@
     <addaction name="backward"/>
     <addaction name="drop_stack"/>
    </widget>
-   <widget class="QMenu" name="information">
-    <property name="title">
-     <string>Информация</string>
-    </property>
-    <addaction name="source"/>
-    <addaction name="info"/>
-    <addaction name="contacts"/>
-   </widget>
    <addaction name="navigation"/>
-   <addaction name="information"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="backward">
