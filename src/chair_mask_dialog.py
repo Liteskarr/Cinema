@@ -103,8 +103,6 @@ class ChairMaskDialog(QDialog):
         self._filter_mask()
 
     def _handle_saving_button_click(self):
-        if self._mask == [(0, 0)]:
-            self._mask = []
         self.close()
 
     def _handle_mask_dropping(self):

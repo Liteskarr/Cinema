@@ -21,6 +21,8 @@ ANY_ITEM = 'ВСЕ'
 
 
 def test_mask(booked: List[Tuple[int, int]], mask: List[Tuple[int, int]], width: int, height: int) -> bool:
+    if not mask:
+        return True
     for r in range(height):
         for c in range(width):
             if (r, c) in booked:
