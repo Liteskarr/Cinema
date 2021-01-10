@@ -25,7 +25,7 @@ class ChairMaskDialog(QDialog):
         self.grid = QGridLayout(self)
 
         self.buttons_layout = QGridLayout(self)
-        self.grid.addLayout(self.buttons_layout, 1, 1, 4, 4)
+        self.grid.addLayout(self.buttons_layout, 1, 0, 4, 6)
 
         self.width_label = QLabel(self)
         self.width_label.setText('Ширина маски:')
