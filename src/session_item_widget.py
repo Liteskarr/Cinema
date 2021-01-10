@@ -25,9 +25,9 @@ class SessionItemWidget(QWidget):
         self.film_title.setText(self._film_name)
         minutes = self._duration.seconds // 60
         datetime_format = ContextLocator.get_context().datetime_show_format
-        self.time_label.setText(f'C [{self._date.strftime(datetime_format)}] '
-                                f'до [{(self._date + self._duration).strftime(datetime_format)}] '
-                                f'({minutes // 60 :02d}:{minutes % 60:02d})')
+        self.time_start_label.setText(f'{self._date.strftime(datetime_format)}')
+        self.duration_label.setText(f'↓ ({minutes // 60 :02d}:{minutes % 60:02d}) ↓')
+        self.time_end_label.setText(f'{(self._date + self._duration).strftime(datetime_format)}')
         self.closing_button.clicked.connect(lambda: self.closing_button_clicked.emit(self._session))
         self.deleting_button.clicked.connect(lambda: self.deleting_button_clicked.emit(self._session))
         self.opening_button.clicked.connect(lambda: self.opening_button_clicked.emit(self._session))
