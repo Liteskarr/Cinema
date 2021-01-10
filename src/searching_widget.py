@@ -7,7 +7,9 @@ from PyQt5.QtWidgets import (QWidget,
                              QComboBox,
                              QPushButton,
                              QListWidget,
-                             QListWidgetItem)
+                             QListWidgetItem,
+                             QLabel,
+                             QSizePolicy)
 
 from src.ipage import IPage
 from src.context_locator import ContextLocator
@@ -47,26 +49,43 @@ class SearchingWidget(QWidget, IPage):
 
         self.grid = QGridLayout(self)
 
+        self.cinemas_label = QLabel(self)
+        self.cinemas_label.setText('Кинотеатры')
+        self.grid.addWidget(self.cinemas_label, 0, 0)
+
         self.cinemas_combobox = QComboBox(self)
         self.cinemas_combobox.currentIndexChanged.connect(self._handle_cinemas_combobox_changing)
         self.cinemas_combobox.currentIndexChanged.connect(self._search)
-        self.grid.addWidget(self.cinemas_combobox, 0, 0)
+        self.grid.addWidget(self.cinemas_combobox, 1, 0)
+
+        self.halls_label = QLabel(self)
+        self.halls_label.setText('Залы')
+        self.grid.addWidget(self.halls_label, 0, 1)
 
         self.halls_combobox = QComboBox(self)
         self.halls_combobox.currentIndexChanged.connect(self._search)
-        self.grid.addWidget(self.halls_combobox, 0, 1)
+        self.grid.addWidget(self.halls_combobox, 1, 1)
+
+        self.films_label = QLabel(self)
+        self.films_label.setText('Фильмы')
+        self.grid.addWidget(self.films_label, 0, 2)
 
         self.films_combobox = QComboBox(self)
         self.films_combobox.currentIndexChanged.connect(self._search)
-        self.grid.addWidget(self.films_combobox, 0, 2)
+        self.grid.addWidget(self.films_combobox, 1, 2)
+
+        self.chair_mask_label = QLabel(self)
+        self.chair_mask_label.setText('Маска незанятых мест')
+        self.grid.addWidget(self.chair_mask_label, 0, 3)
 
         self.chair_mask_changer = QPushButton(self)
         self.chair_mask_changer.setText('Маска кресел')
         self.chair_mask_changer.clicked.connect(self._handle_chair_mask_changing)
-        self.grid.addWidget(self.chair_mask_changer, 0, 3)
+        self.grid.addWidget(self.chair_mask_changer, 1, 3)
 
         self.sessions = QListWidget(self)
-        self.grid.addWidget(self.sessions, 1, 0, 4, 4)
+        self.sessions.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.grid.addWidget(self.sessions, 2, 0, 16, 4)
 
     def _reload_comboboxes(self):
         connection = ContextLocator.get_context().connection
