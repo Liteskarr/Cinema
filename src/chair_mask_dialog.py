@@ -11,9 +11,9 @@ from PyQt5.QtWidgets import (QWidget,
 
 
 class ChairMaskDialog(QDialog):
-    def __init__(self, parent: QWidget):
+    def __init__(self, parent: QWidget, initial_mask: List = None):
         super().__init__(parent)
-        self._mask = []
+        self._mask = [] if initial_mask is None else initial_mask
         self._configure_ui()
         self._redraw_buttons()
 
@@ -34,6 +34,7 @@ class ChairMaskDialog(QDialog):
         self.width_spin = QSpinBox(self)
         self.width_spin.setMinimum(1)
         self.width_spin.setMaximum(40)
+        self.width_spin.setValue(max(self._mask + [(0, 0)], key=lambda x: x[1])[1] + 1)
         self.width_spin.valueChanged.connect(self._handle_spin_value_changing)
         self.grid.addWidget(self.width_spin, 0, 1)
 
@@ -44,6 +45,7 @@ class ChairMaskDialog(QDialog):
         self.height_spin = QSpinBox(self)
         self.height_spin.setMinimum(1)
         self.height_spin.setMaximum(40)
+        self.height_spin.setValue(max(self._mask + [(0, 0)], key=lambda x: x[0])[0] + 1)
         self.height_spin.valueChanged.connect(self._handle_spin_value_changing)
         self.grid.addWidget(self.height_spin, 0, 3)
 

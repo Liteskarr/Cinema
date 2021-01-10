@@ -78,9 +78,12 @@ class SessionsViewerWidget(ItemsViewerWidget):
         cursor = connection.cursor()
         request = """
         SELECT sessions.id, films.name, films.duration, sessions.datetime, sessions.closed FROM sessions
-        INNER JOIN films ON films.id = sessions.film; 
+        INNER JOIN films ON films.id = sessions.film
+        WHERE
+            sessions.hall = ?; 
         """
-        for session, film_name, duration, date, is_closed in cursor.execute(request).fetchall():
+        hall = ContextLocator.get_context().current_hall
+        for session, film_name, duration, date, is_closed in cursor.execute(request, (hall, )).fetchall():
             if not is_closed:
                 date = date[:-3]
                 date = datetime.strptime(date, ContextLocator.get_context().datetime_packing_format)

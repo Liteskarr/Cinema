@@ -21,20 +21,41 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="1">
     <widget class="QPushButton" name="statistic_button">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Статистика</string>
+      <string>Статистика и отчеты</string>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
     <widget class="QPushButton" name="searching_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Поиск</string>
+      <string>Поиск сеансов</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
     <widget class="QPushButton" name="cinemas_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Кинотеатры</string>
      </property>
@@ -42,8 +63,14 @@
    </item>
    <item row="1" column="1">
     <widget class="QPushButton" name="films_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
-      <string>Фильмы</string>
+      <string>Менеджер Фильмов</string>
      </property>
     </widget>
    </item>
