@@ -6,6 +6,7 @@ from src.empty_page_widget import EmptyPageWidget
 from src.cinemas_viewer_widget import CinemasViewerWidget
 from src.films_viewer_widget import FilmsViewerWidget
 from src.searching_widget import SearchingWidget
+from src.statistics_widget import StatisticsWidget
 
 
 class MainMenuWidget(QWidget, IPage):
@@ -37,7 +38,9 @@ class MainMenuWidget(QWidget, IPage):
         self._new_page = EmptyPageWidget()
 
     def _handle_statistic_button_click(self):
+        self._new_page = StatisticsWidget()
         self.opened_new_page.emit()
+        self._new_page = EmptyPageWidget()
 
     def get_new_page(self):
         return self._new_page
